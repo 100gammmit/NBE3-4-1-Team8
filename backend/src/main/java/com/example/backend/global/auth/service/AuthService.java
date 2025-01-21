@@ -90,7 +90,7 @@ public class AuthService {
 			}
 			case PASSWORD_RESET -> {
 				String createTemporaryPassword = Member.createTemporaryPassword();
-				findMember.changePassword(createTemporaryPassword);
+				findMember.changePassword(passwordEncoder.encode(createTemporaryPassword));
 				memberRepository.save(findMember);
 
 				mailService.sendTemporaryPasswordMail(username, createTemporaryPassword, TemplateName.PASSWORD_RESET);
