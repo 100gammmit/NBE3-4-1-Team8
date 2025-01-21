@@ -23,7 +23,7 @@ export const useCart = () => {
         }
       );
 
-      const responseData: ApiResponse<number> = await response.json();
+      const responseData: ApiPaginationResponse<number> = await response.json();
 
       if (!responseData.success) {
         throw new Error(responseData.message || '장바구니에 상품 등록중 예외가 발생하였습니다.');
