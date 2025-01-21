@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { useProduct } from "@/app/hooks/useProduct";
-import { use } from 'react';
+import {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
+import {useProduct} from "@/app/hooks/useProduct";
+import {use} from 'react';
 import ProductForm from "../../../../components/ProductForm";
 
-export default function ProductModify({ params }: { params: Promise<{ id: string }> }) {
+export default function ProductModify({params}: { params: Promise<{ id: string }> }) {
     const unwrappedParams = use(params);
     const productId = parseInt(unwrappedParams.id);
+    const router = useRouter();
 
     const product = useProduct(productId);
     const [initialData, setInitialData] = useState<{
@@ -31,7 +32,13 @@ export default function ProductModify({ params }: { params: Promise<{ id: string
         }
     }, [product]);
 
-    const handleSubmit = async (formData: { name: string; content: string; price: number; imgUrl: string; quantity: number; }) => {
+    const handleSubmit = async (formData: {
+        name: string;
+        content: string;
+        price: number;
+        imgUrl: string;
+        quantity: number;
+    }) => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`, {
             method: "PATCH",
             headers: {
@@ -46,14 +53,15 @@ export default function ProductModify({ params }: { params: Promise<{ id: string
         }
 
         const data = await response.json();
-        console.log('Product updated:', data);
+
+        await router.push(`/product/${productId}`);
     };
 
     return (
         <div className="container mx-auto px-4 py-8 text-black">
             <h1 className="text-2xl font-bold mb-6 text-center">상품 수정</h1>
 
-            <ProductForm initialData={initialData} onSubmit={handleSubmit} />
+            <ProductForm initialData={initialData} onSubmit={handleSubmit}/>
 
         </div>
     );
