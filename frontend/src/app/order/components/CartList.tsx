@@ -18,7 +18,7 @@ async function CartList ({ showOrderButton = true }: CartListProps) {
             </h2>
             <ul className="flex flex-col gap-y-4 pb-[88px]">
                 {cartList.map((item) => (
-                    <li key={item.id} className="border border-gray-200 rounded-lg flex gap-x-2 p-4">
+                    <li key={item.productId} className="border border-gray-200 rounded-lg flex gap-x-2 p-4">
                         <img src={item.productImgUrl} alt={item.productName} width={100} height={100}
                              className="object-cover rounded-lg h-[100px]"/>
                         <div className="flex flex-col gap-y-2 justify-between">
