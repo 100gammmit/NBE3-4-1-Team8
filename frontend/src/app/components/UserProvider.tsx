@@ -24,7 +24,7 @@ export function UserProvider({ children }: UserProviderProps) {
                 });
                 const result = await response.json();
                 if (response.status === 200) {
-                    setUsername(result.data.username);
+                    setUsername(result.data.nickname);
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
