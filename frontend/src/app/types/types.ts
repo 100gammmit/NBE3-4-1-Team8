@@ -1,27 +1,34 @@
 interface Product {
-  id: number;
-  name: string;
-  content: string;
-  price: number;
-  imgUrl: string;
+    id: number;
+    name: string;
+    content: string;
+    price: number;
+    imgUrl: string;
+}
+
+interface ApiPaginationResponse<T> {
+    timestamp: string;
+    message: string | null;
+    data: {
+        content: T;
+        pageable: {
+            pageNumber: number | null;
+            pageSize: number | null;
+            offset: number | null;
+        } | null;
+        totalElements: number | null;
+        totalPages: number | null;
+        number: number | null;
+        size: number | null;
+    };
+    success: boolean;
 }
 
 interface ApiResponse<T> {
-  timestamp: string;
-  message: string | null;
-  data: {
-    content: T;
-    pageable: {
-      pageNumber: number | null;
-      pageSize: number | null;
-      offset: number | null;
-    } | null;
-    totalElements: number | null;
-    totalPages: number | null;
-    number: number | null;
-    size: number | null;
-  };
-  success: boolean;
+    timestamp: string;
+    message: string | null;
+    data: T;
+    success: boolean;
 }
 
 interface Address {
@@ -38,13 +45,13 @@ interface UserData {
 }
 
 interface PasswordChangeForm {
-  originalPassword: string;
-  password: string;
-  passwordCheck: string;
+    originalPassword: string;
+    password: string;
+    passwordCheck: string;
 }
 
 // types/order.ts
- interface OrderProduct {
+interface OrderProduct {
     id: number;
     name: string;
     price: number;

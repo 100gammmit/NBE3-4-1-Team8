@@ -1,7 +1,7 @@
 interface QuantitySelectorProps {
   quantity: number;
   onUpdate: (change: number) => void;
-  disabled?: boolean;
+  disabled: boolean;
 }
 
 export const QuantitySelector = ({ quantity, onUpdate, disabled = false }: QuantitySelectorProps) => {
