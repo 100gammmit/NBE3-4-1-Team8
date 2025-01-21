@@ -2,6 +2,7 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useUser} from "@/app/components/UserProvider";
+import Link from "next/link";
 
 interface LoginForm {
     username: string;
@@ -195,6 +196,12 @@ function LoginForm() {
                         >
                             로그인
                         </button>
+
+                        <div className="text-center mt-4 ">
+                            <Link href="/member/password/reset" className="text-gray-500">
+                                비밀번호를 잊어버리셨나요?
+                            </Link>
+                        </div>
 
                         {emailNotVerified && (
                             <div className="mt-4">
