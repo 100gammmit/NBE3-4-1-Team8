@@ -16,6 +16,7 @@ public class MemberConverter {
 		return MemberInfoResponse.builder()
 			.username(member.getUsername())
 			.nickname(member.getNickname())
+			.role(member.getRole())
 			.address(member.getAddress())
 			.build();
 	}

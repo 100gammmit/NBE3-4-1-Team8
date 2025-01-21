@@ -42,8 +42,6 @@ public class MemberService {
 		String detail) {
 		existsMember(username, nickname);
 
-		//TODO 추후에 인증 메일 발송 기능 구현 후 수정 예정
-
 		String certificationCode = UUID.randomUUID().toString();
 
 		EmailCertification emailCertification = EmailCertification.builder()

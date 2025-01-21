@@ -289,7 +289,7 @@ public class AuthControllerTest {
 			.password("Password123!")
 			.build();
 
-		AuthResponse authResponse = AuthResponse.of("user@gmail.com", "accessToken", "refreshToken");
+		AuthResponse authResponse = AuthResponse.of("user@gmail.com", "testNickname", "accessToken", "refreshToken");
 		when(authService.login(any(AuthForm.class))).thenReturn(authResponse);
 		doNothing().when(cookieService).addAccessTokenToCookie(any(String.class), any(HttpServletResponse.class));
 		doNothing().when(cookieService).addRefreshTokenToCookie(any(String.class), any(HttpServletResponse.class));

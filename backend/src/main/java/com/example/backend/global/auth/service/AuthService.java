@@ -60,7 +60,7 @@ public class AuthService {
 			findMember.getRole());
 		refreshTokenService.saveRefreshToken(findMember.getUsername(), refreshToken);
 
-		return AuthResponse.of(findMember.getUsername(), accessToken, refreshToken);
+		return AuthResponse.of(findMember.getUsername(), findMember.getNickname(), accessToken, refreshToken);
 	}
 
 	public void logout(String accessToken) {

@@ -43,7 +43,7 @@ public class AuthController {
         cookieService.addRefreshTokenToCookie(authResponse.refreshToken(), response);
 
         return ResponseEntity.status(HttpStatus.OK).body(GenericResponse.of(
-			AuthLoginResponse.of(authResponse.username()), "로그인 성공"));
+			AuthLoginResponse.of(authResponse.username(), authResponse.nickname()), "로그인 성공"));
     }
 
 	@Operation(summary = "로그아웃", description = "accessToken, refreshToken 을 제거")

@@ -41,6 +41,7 @@ interface Address {
 interface UserData {
     username: string;
     nickname: string;
+    role: string;
     address: Address;
 }
 
