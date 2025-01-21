@@ -1,6 +1,7 @@
 import orderApi, { Cart } from "./utils/orderApi";
 import CartList from './components/CartList';
 import {Suspense} from "react";
+import AddressButton from "./components/AddressButton";
 
 async function OrderPage() {
     const memberInfo = await orderApi.getMemberInfo();
@@ -10,24 +11,26 @@ async function OrderPage() {
     }
 
     return (
-        <form>
-        <section className={sectionStyles}>
-            <h2 className={titleStyles}>배송지</h2>
-            <p className="text-lg">
-                {memberInfo.address.city} {memberInfo.address.district} {memberInfo.address.country} {memberInfo.address.detail}
-            </p>
-            <p className="flex gap-x-1 items-center">{memberInfo.username}
-                <span className="text-sm text-gray-500">({memberInfo.nickname})</span>
-            </p>
-        </section>
-        <Suspense>
-            <CartList />
-        </Suspense>
-        </form>
+        <>
+            <section className={sectionStyles}>
+                <h2 className='text-xl font-bold mb-2 flex items-center gap-x-2 justify-between items-center'>
+                    배송지
+                    <AddressButton memberInfo={memberInfo}/>
+                </h2>
+                <p className="text-lg">
+                    {memberInfo.address.city} {memberInfo.address.district} {memberInfo.address.country} {memberInfo.address.detail}
+                </p>
+                <p className="flex gap-x-1 items-center">{memberInfo.username}
+                    <span className="text-sm text-gray-500">({memberInfo.nickname})</span>
+                </p>
+            </section>
+            <Suspense>
+                <CartList />
+            </Suspense>
+        </>
     )
 }
 
-export const sectionStyles = "w-full h-full border-t-8 border-gray-200 bg-white p-4";
-export const titleStyles = "text-xl font-bold mb-2 flex items-center gap-x-2";
+export const sectionStyles = "w-full h-full border-t-8 border-gray-200 bg-white p-4 text-gray-900";
 
 export default OrderPage;
