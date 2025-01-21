@@ -35,7 +35,7 @@ export const useProduct = (productId: number) => {
           throw new Error(responseData.message || '상품을 불러오는데 실패했습니다.');
         }
 
-        setProduct(Array.isArray(responseData.data) ? responseData.data[0] : responseData.data);
+        setProduct(responseData.data.content)
       } catch (err) {
         setError(err instanceof Error ? err.message : '상품을 불러오는데 실패했습니다.');
       } finally {
