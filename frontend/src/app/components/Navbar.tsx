@@ -1,11 +1,12 @@
 // NavBar.tsx
 "use client";
 import Link from 'next/link';
-import { useUser } from '@/app/components/UserProvider';
+import {useUser} from '@/app/components/UserProvider';
+import {useRouter} from "next/navigation";
 
 export default function NavBar() {
-    const { username, isAdmin, setUsername, setIsAdmin } = useUser();
-
+    const {username, isAdmin, setUsername, setIsAdmin} = useUser();
+    const router = useRouter();
     const handleLogout = async () => {
         await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
             method: 'POST',
@@ -16,6 +17,7 @@ export default function NavBar() {
         });
         setUsername(''); // Context state update
         setIsAdmin(false); // Reset admin status on logout
+        router.push('/');
     };
 
     return (
