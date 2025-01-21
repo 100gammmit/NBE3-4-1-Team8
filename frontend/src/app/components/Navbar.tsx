@@ -31,7 +31,7 @@ export default function NavBar() {
                                 </li>
                                 <li className="nav-item">
                                     <Link
-                                        href="/user/info"
+                                        href="/member/info"
                                         className="block py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0"
                                     >
                                         내정보
