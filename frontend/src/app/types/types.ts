@@ -36,3 +36,9 @@ interface UserData {
     nickname: string;
     address: Address;
 }
+
+interface PasswordChangeForm {
+  originalPassword: string;
+  password: string;
+  passwordCheck: string;
+}
