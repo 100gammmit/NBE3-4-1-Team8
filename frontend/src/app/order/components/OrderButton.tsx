@@ -43,7 +43,7 @@ function OrderButton({cartList, memberInfo}: OrderButtonProps) {
                 country: memberInfo.address.country,
                 detail: memberInfo.address.detail,
                 productOrdersRequestList: cartList.map((item) => ({
-                    productId: item.id,
+                    productId: item.productId,
                     quantity: item.quantity
                 })),
             });
