@@ -23,3 +23,16 @@ interface ApiResponse<T> {
   };
   success: boolean;
 }
+
+interface Address {
+    city: string;
+    district: string;
+    country: string;
+    detail: string;
+}
+
+interface UserData {
+    username: string;
+    nickname: string;
+    address: Address;
+}
