@@ -75,7 +75,7 @@ public class AuthService {
 		Member findMember = memberRepository.findByUsername(username)
 			.orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
 
-		if (MemberStatus.ACTIVE.equals(findMember.getMemberStatus())) {
+		if (MemberStatus.ACTIVE.equals(findMember.getMemberStatus()) && VerifyType.SIGNUP.equals(verifyType)) {
 			throw new AuthException(AuthErrorCode.ALREADY_CERTIFIED);
 		}
 
@@ -84,9 +84,6 @@ public class AuthService {
 		// 비밀번호 초기화 코드면 인증 후 임시 비밀번호 발송 로직 추가할 것
 		switch (verifyType) {
 			case SIGNUP -> {
-				if (MemberStatus.ACTIVE.equals(findMember.getMemberStatus())) {
-					throw new AuthException(AuthErrorCode.ALREADY_CERTIFIED);
-				}
 				findMember.verify();
 
 				memberRepository.save(findMember);
