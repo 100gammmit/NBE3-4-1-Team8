@@ -1,9 +1,10 @@
+// NavBar.tsx
 "use client";
 import Link from 'next/link';
 import { useUser } from '@/app/components/UserProvider';
 
 export default function NavBar() {
-    const { username, setUsername } = useUser();
+    const { username, isAdmin, setUsername, setIsAdmin } = useUser();
 
     const handleLogout = async () => {
         await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
@@ -14,6 +15,7 @@ export default function NavBar() {
             },
         });
         setUsername(''); // Context state update
+        setIsAdmin(false); // Reset admin status on logout
     };
 
     return (
@@ -26,7 +28,7 @@ export default function NavBar() {
                             <>
                                 <li className="nav-item">
                                     <span className="block py-2 pr-4 pl-3 text-gray-700 lg:p-0">
-                                        Welcome, {username}
+                                        {username}
                                     </span>
                                 </li>
                                 <li className="nav-item">
@@ -42,6 +44,16 @@ export default function NavBar() {
                                         장바구니 보기
                                     </Link>
                                 </li>
+                                {isAdmin && (
+                                    <li className="nav-item">
+                                        <Link
+                                            href="/admin"
+                                            className="block py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0"
+                                        >
+                                            관리자
+                                        </Link>
+                                    </li>
+                                )}
                                 <li className="nav-item">
                                     <button
                                         onClick={handleLogout}
@@ -58,7 +70,7 @@ export default function NavBar() {
                                         href="/login"
                                         className="block py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0"
                                     >
-                                    로그인
+                                        로그인
                                     </Link>
                                 </li>
                                 <li className="nav-item">
