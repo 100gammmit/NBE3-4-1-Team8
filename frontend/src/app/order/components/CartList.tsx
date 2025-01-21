@@ -1,11 +1,17 @@
-import orderApi, {Cart} from "@/app/order/utils/orderApi";
-import { sectionStyles, titleStyles } from '../page';
+import orderApi from "@/app/order/utils/orderApi";
+import { sectionStyles } from '../page';
+import OrderButton from "./OrderButton";
 
-async function CartList () {
+interface CartListProps {
+    showOrderButton?: boolean;
+}
+
+async function CartList ({ showOrderButton = true }: CartListProps) {
     const cartList = await orderApi.getCart();
+    const memberInfo = await orderApi.getMemberInfo();
     return (
         <section className={sectionStyles}>
-            <h2 className={titleStyles}>주문상품
+            <h2 className='text-xl font-bold mb-2 flex items-center gap-x-2'>주문상품
                 <span className="text-sm text-gray-500">
                     {cartList.length}건
                 </span>
@@ -26,17 +32,13 @@ async function CartList () {
                     </li>
                 ))}
             </ul>
-            <aside className="fixed bottom-0 left-0 right-0 bg-white p-4">
-                <button
-                    className="w-full bg-black text-white p-4 rounded-lg hover:bg-black/80 transition-colors duration-200 flex items-center justify-center gap-x-1">
-                    <span className="font-semibold">{getTotalPrice(cartList).toLocaleString()}원</span>
-                    결제하기
-                </button>
-            </aside>
+            {showOrderButton && (
+                <OrderButton
+                cartList={cartList}
+                memberInfo={memberInfo}
+            />)}
         </section>
     )
 }
-
-const getTotalPrice = (cartResponse: Cart[]) => cartResponse.reduce((acc, item) => acc + item.totalPrice, 0);
 
 export default CartList;
