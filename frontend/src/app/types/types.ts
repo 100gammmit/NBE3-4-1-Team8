@@ -23,3 +23,47 @@ interface ApiResponse<T> {
   };
   success: boolean;
 }
+
+interface Address {
+    city: string;
+    district: string;
+    country: string;
+    detail: string;
+}
+
+interface UserData {
+    username: string;
+    nickname: string;
+    address: Address;
+}
+
+interface PasswordChangeForm {
+  originalPassword: string;
+  password: string;
+  passwordCheck: string;
+}
+
+// types/order.ts
+ interface OrderProduct {
+    id: number;
+    name: string;
+    price: number;
+    imgUrl: string | null;
+    quantity: number;
+}
+
+interface Order {
+    id: number;
+    products: OrderProduct[];
+    totalPrice: number;
+    status: string;
+    createAt: string;
+    modifiedAt: string;
+}
+
+interface OrderResponse {
+    timestamp: string;
+    message: string | null;
+    data: Order[];
+    success: boolean;
+}
