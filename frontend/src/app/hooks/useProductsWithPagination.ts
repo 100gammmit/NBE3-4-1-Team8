@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export const useProductsWithPagination = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,13 +26,13 @@ export const useProductsWithPagination = () => {
           throw new Error('Failed to fetch products');
         }
 
-        const responseData: ApiResponse<Product> = await response.json();
+        const responseData: ApiResponse<Product[]> = await response.json();
         
         if (!responseData.success) {
           throw new Error(responseData.message || '상품을 불러오는데 실패했습니다.');
         }
 
-        setProducts(Array.isArray(responseData.data.content) ? responseData.data.content : [responseData.data.content]);
+        setProducts(responseData.data.content);
         setTotalPages(responseData.data.totalPages ?? 0);
       } catch (err) {
         setError(err instanceof Error ? err.message : '상품을 불러오는데 실패했습니다.');

@@ -10,7 +10,7 @@ interface ApiResponse<T> {
   timestamp: string;
   message: string | null;
   data: {
-    content: T | T[];
+    content: T;
     pageable: {
       pageNumber: number | null;
       pageSize: number | null;
