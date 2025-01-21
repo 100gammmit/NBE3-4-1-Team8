@@ -1,17 +1,41 @@
 'use client';
-
-import { useRouter } from "next/navigation";
-import orderApi, { Cart, MemberInfo } from "../utils/orderApi";
+import {useRouter} from "next/navigation";
+import orderApi, {Cart, MemberInfo} from "../utils/orderApi";
 
 interface OrderButtonProps {
     cartList: Cart[];
     memberInfo: MemberInfo;
 }
 
-function OrderButton({ cartList, memberInfo }: OrderButtonProps) {
+function OrderButton({cartList, memberInfo}: OrderButtonProps) {
     const router = useRouter();
+
+    const deleteCartItems = async (productIds: number[]) => {
+            try {
+                await Promise.all(
+                    productIds.map(id =>
+                        fetch(`${process.env.NEXT_PUBLIC_API_URL}/carts`, {
+                                method: 'DELETE',
+                                credentials: 'include',
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    productId: id
+                                })
+                            }
+                        )
+                    ));
+            } catch
+                (error) {
+                console.error('장바구니 삭제 중 오류 발생:', error);
+            }
+        }
+    ;
+
     const handleClick = async () => {
         try {
+            // 1. 주문 생성
             await orderApi.postOrder({
                 memberId: 1234,
                 city: memberInfo.address.city,
@@ -23,6 +47,9 @@ function OrderButton({ cartList, memberInfo }: OrderButtonProps) {
                     quantity: item.quantity
                 })),
             });
+
+            const productIds = cartList.map(item => item.productId);
+            await deleteCartItems(productIds);
 
             router.push('/order/completed');
         } catch (error) {
@@ -43,6 +70,5 @@ function OrderButton({ cartList, memberInfo }: OrderButtonProps) {
 }
 
 const getTotalPrice = (cartResponse: Cart[]) => cartResponse.reduce((acc, item) => acc + item.totalPrice, 0);
-
 
 export default OrderButton;
