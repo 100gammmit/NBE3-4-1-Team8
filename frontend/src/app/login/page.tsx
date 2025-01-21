@@ -75,10 +75,8 @@ function LoginForm() {
 
             const responseData = await response.json();
             if (responseData.success) {
-                localStorage.setItem('username', responseData.data.username);
-                setUsername(responseData.data.username);
+                setUsername(responseData.data.nickname);
             }
-
             console.log("로그인 성공!");
             router.push("/");
         } catch (error) {
